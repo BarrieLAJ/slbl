@@ -1,30 +1,48 @@
-import * as React from 'react';
-import type { NextPage } from 'next';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Link from '../src/Link';
+import * as React from "react";
+import type { NextPage } from "next";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Layout from "../src/components/Layout";
+import Grid from "@mui/material/Grid";
+import EventCard from "../src/components/EventCard";
 
 const Home: NextPage = () => {
   return (
-    <Container maxWidth="lg">
-      <Box
+    <Layout title="Home Page">
+      <Container
         sx={{
-          my: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
+          mb: 3,
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript Starter kit
+        <Typography
+          sx={{
+            fontWeight: 700,
+            fontSize: "56px",
+            textAlign: "center",
+            my: 6,
+          }}
+        >
+          SLBL SALES EVENTS LOCATIONS
         </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-      </Box>
-    </Container>
+        <Grid container columnSpacing={4} rowGap={4}>
+          {["1", "2", "3", "4", "5", "6", "7", "8"].map(() => {
+            return (
+              <Grid
+                item
+                md={3}
+                sx={{
+                  maxWidth: "300px",
+                  width: "300px",
+                }}
+              >
+                <EventCard />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Container>
+    </Layout>
   );
 };
 
