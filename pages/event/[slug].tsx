@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../src/components/Layout";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -9,14 +9,64 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import { useMutation } from "@tanstack/react-query";
+import { FiCheckCircle } from "react-icons/fi";
 
 const Event = () => {
-  //   const { query } = useRouter();
+  const { query } = useRouter();
+  const [open, setOpen] = useState(false);
+  const mutation = useMutation(
+    (data: {
+      name: string;
+      email: string;
+      location: string;
+      phoneNumber: string;
+    }) => {
+      return fetch("/api/addCustomerRaffleTicket", {
+        method: "post",
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          location: data.location,
+          phoneNumber: data.phoneNumber,
+          eventSlug: query.slug,
+        }),
+      });
+    }
+  );
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      setOpen(mutation.isSuccess);
+    }
+    // if()
+  }, [mutation]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    location: "",
+    phoneNumber: "",
+  });
+
+  const handleChange = (e: {
+    target: {
+      value: any;
+      name: any;
+    };
+  }) => {
+    console.log(e.target.value);
+    setFormData((prevState) =>
+      Object.assign({}, prevState, { [e.target.name]: e.target.value })
+    );
+  };
   return (
     <Layout title="Event">
       <Dialog
-        open={false}
+        open={open}
         maxWidth="lg"
+        onClose={() => {
+          setOpen(false);
+        }}
         sx={{
           py: 6,
           mx: "auto",
@@ -30,8 +80,13 @@ const Event = () => {
               backgroundColor: (theme) => theme.palette.primary.light,
               borderRadius: "50%",
               mx: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-          />
+          >
+            <FiCheckCircle color="" fontSize="150px" />
+          </Box>
           <Typography
             gutterBottom
             sx={{
@@ -105,6 +160,9 @@ const Event = () => {
                 size="small"
                 fullWidth
                 placeholder="Enter name"
+                value={formData["name"]}
+                name="name"
+                onChange={handleChange}
                 sx={{
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
@@ -126,6 +184,9 @@ const Event = () => {
                 size="small"
                 fullWidth
                 placeholder="Enter phone number"
+                value={formData["phoneNumber"]}
+                name="phoneNumber"
+                onChange={handleChange}
                 sx={{
                   "& .MuiInputBase-root": {
                     borderRadius: "8px",
@@ -147,6 +208,9 @@ const Event = () => {
                 size="small"
                 fullWidth
                 placeholder="Enter email address"
+                value={formData["email"]}
+                name="email"
+                onChange={handleChange}
                 type="email"
                 sx={{
                   "& .MuiInputBase-root": {
@@ -168,6 +232,9 @@ const Event = () => {
               <TextField
                 size="small"
                 fullWidth
+                value={formData["location"]}
+                name="location"
+                onChange={handleChange}
                 placeholder="Location"
                 sx={{
                   "& .MuiInputBase-root": {
@@ -185,6 +252,9 @@ const Event = () => {
               <Button
                 variant="contained"
                 color="primary"
+                onClick={() => {
+                  mutation.mutate(formData);
+                }}
                 sx={{
                   textTransform: "none",
                   fontSize: "18px",

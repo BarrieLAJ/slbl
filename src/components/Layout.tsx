@@ -2,7 +2,11 @@ import React, { ReactNode } from "react";
 import Box from "@mui/material/Box";
 import Head from "next/head";
 
-const Layout = (props: { title: string; children: ReactNode }) => {
+const Layout = (props: {
+  title: string;
+  children: ReactNode;
+  otherLogo?: boolean;
+}) => {
   return (
     <>
       <Head>
@@ -17,7 +21,13 @@ const Layout = (props: { title: string; children: ReactNode }) => {
           justifyContent: "center",
         }}
       >
-        <img src="/images/SlBLLogoWhite.png" />
+        <img
+          src={
+            !props.otherLogo
+              ? "/images/SlBLLogoWhite.png"
+              : "/images/Raffle Logo.png"
+          }
+        />
       </Box>
       <main>{props.children}</main>
     </>

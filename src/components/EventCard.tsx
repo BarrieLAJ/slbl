@@ -5,6 +5,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { FiCalendar } from "react-icons/fi";
 
 const EventCard = () => {
   return (
@@ -38,7 +39,7 @@ const EventCard = () => {
               gap: 2,
             }}
           >
-            <></>
+            <FiCalendar />
             <Typography
               sx={{
                 fontWeight: 400,

@@ -26,9 +26,14 @@ const Home: NextPage = () => {
           SLBL SALES EVENTS LOCATIONS
         </Typography>
         <Grid container columnSpacing={4} rowGap={4}>
-          {["1", "2", "3", "4", "5", "6", "7", "8"].map(() => {
+          {[
+            {
+              slug: "kenema-sales",
+            },
+          ].map((v, i) => {
             return (
               <Grid
+                key={i}
                 item
                 md={3}
                 sx={{
