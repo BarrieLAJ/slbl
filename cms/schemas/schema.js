@@ -39,6 +39,55 @@ export default createSchema({
       ],
     },
     {
+      name: "raffle",
+      type: "document",
+      title: "Raffles",
+      fields: [
+        {
+          name: "ticketCode",
+          type: "string",
+          title: "Ticket Code",
+        },
+        {
+          name: "customer_Id",
+          type: "string",
+          title: "Customer",
+        },
+        {
+          name: "event_Id",
+          type: "string",
+          title: "Event",
+        },
+        {
+          name: "status",
+          type: "string",
+          title: "Status",
+        },
+      ],
+    },
+    {
+      name: "product",
+      type: "document",
+      title: "Product",
+      fields: [
+        {
+          name: "name",
+          type: "string",
+          title: "Name",
+        },
+        {
+          name: "type",
+          type: "string",
+          title: "Type",
+        },
+        {
+          name: "img",
+          type: "image",
+          title: "Image",
+        },
+      ],
+    },
+    {
       name: "item",
       type: "document",
       title: "Items",
@@ -47,6 +96,14 @@ export default createSchema({
           name: "name",
           type: "string",
           title: "Name",
+        },
+        {
+          name: "slug",
+          type: "string",
+          title: "Slug",
+          options: {
+            source: "title",
+          },
         },
         {
           name: "item_image",
@@ -66,6 +123,15 @@ export default createSchema({
           title: "Name",
         },
         {
+          name: "slug",
+          type: "string",
+          title: "Slug",
+          options: {
+            source: "name",
+            maxLength: 96,
+          },
+        },
+        {
           name: "location",
           type: "string",
           title: "Location",
@@ -81,7 +147,7 @@ export default createSchema({
           title: "Image",
         },
         {
-          name: "Items",
+          name: "items",
           type: "array",
           title: "Event Items",
           of: [{ type: "reference", to: [{ type: "item" }] }],
