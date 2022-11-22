@@ -23,7 +23,7 @@ export default createSchema({
         },
         {
           name: "phone",
-          type: "string",
+          type: "string", 
           title: "Phone",
         },
         {
