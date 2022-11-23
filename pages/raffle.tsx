@@ -53,7 +53,7 @@ const Raffle = () => {
 			setTimeout(() => {
 				setShowWinner(true);
 				setSpinComplete(false);
-			}, 500);
+			}, 1000);
 		}
 	}, [spinComplete]);
 
@@ -105,6 +105,20 @@ const Raffle = () => {
 						}}
 					>
 						WINNER!!!
+					</Typography>
+					<Typography gutterBottom textAlign="center" fontSize="14px">
+						Raffle ticket
+					</Typography>
+					<Typography
+						sx={{
+							textAlign: "center",
+							textTransform: "uppercase",
+							fontWeight: 700,
+						}}
+						variant="h2"
+						gutterBottom
+					>
+						{alias}763
 					</Typography>
 					<Typography
 						gutterBottom
