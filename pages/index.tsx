@@ -53,6 +53,7 @@ const Home: NextPage = () => {
 										id={event.id}
 										imgSrc={event.attributes.imgSrc}
 										startDate={event.attributes.Start_Date}
+										alias={event.attributes.alias}
 									/>
 								</Grid>
 							);
