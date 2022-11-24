@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 // import { LinkProps } from "../Link";
 
-const EventCard = (props: { name: string; startDate: string; imgSrc: string; id: string, alias: string }) => {
+const EventCard = (props: { name: string; startDate: string; imgSrc: string; id: string; alias: string }) => {
 	return (
 		<Card
 			sx={{
@@ -21,7 +21,7 @@ const EventCard = (props: { name: string; startDate: string; imgSrc: string; id:
 			{/* <CardActionArea href={`event/${props.id}`}> */}
 			<CardMedia
 				component="img"
-				src=""
+				src={`http://localhost:1337${props.imgSrc}`}
 				sx={{
 					maxWidth: "100%",
 					minWidth: "100%",

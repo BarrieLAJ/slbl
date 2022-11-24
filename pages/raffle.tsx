@@ -133,7 +133,11 @@ const Raffle = () => {
 					</Typography>
 					<Box mx="auto" width="100%" display="flex" justifyContent="center">
 						<StyledImg
-							src="/images/drinks.png"
+							src={`http://localhost:1337${
+								data?.data !== undefined
+									? data?.data.raffleTicketWinner.item_won.Image.url
+									: "null"
+							}`}
 							width="376px"
 							sx={{
 								backgroundColor: (theme) => theme.palette.primary.light,

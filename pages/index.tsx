@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import EventCard from "../src/components/EventCard";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import qs from "qs";
 
 const Home: NextPage = () => {
 	const {
@@ -15,7 +16,20 @@ const Home: NextPage = () => {
 		isLoading,
 		isError,
 	} = useQuery<any[]>(["events"], async () => {
-		const res = await axios.get("http://localhost:1337/api/events");
+		const query = qs.stringify(
+			{
+				// fields: ["title", "slug"],
+				populate: {
+					Image: {
+						fields: ["name", "url"],
+					},
+				},
+			},
+			{
+				encodeValuesOnly: true, // prettify URL
+			}
+		);
+		const res = await axios.get(`http://localhost:1337/api/events?${query}`);
 		return res.data.data;
 	});
 	return (
@@ -51,7 +65,7 @@ const Home: NextPage = () => {
 									<EventCard
 										name={event.attributes.Title}
 										id={event.id}
-										imgSrc={event.attributes.imgSrc}
+										imgSrc={event.attributes.Image.data[0].attributes.url}
 										startDate={event.attributes.Start_Date}
 										alias={event.attributes.alias}
 									/>
